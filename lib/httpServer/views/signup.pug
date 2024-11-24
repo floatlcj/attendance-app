@@ -1,0 +1,45 @@
+doctype html
+html(lang="en")
+    head
+        title Attendance App - Sign Up
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css")
+        style.
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #f5f5f5;
+            }
+            .signup-container {
+                margin-top: 50px;
+            }
+            .signup-box {
+                padding: 40px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+    body
+        section.section
+            .container.signup-container
+                .columns.is-centered
+                    .column.is-one-third
+                        .box.signup-box
+                            h2.title.is-3.has-text-centered Sign Up
+                            if error
+                                .notification.is-danger.has-text-centered
+                                    | #{error}
+                            form(method="POST", action="/signup")
+                                //- .field
+                                //-     label.label.has-text-centered(for="walletId") Wallet ID
+                                //-     .control
+                                //-         input.input(type="text", name="stuid", value=stuid, required)
+                                .field
+                                    label.label.has-text-centered(for="password") Password
+                                    .control
+                                        input.input(type="password", name="password", required)
+                                .field
+                                    .control.has-text-centered
+                                        button.button.is-primary.is-fullwidth(type="submit") Sign Up
+                            .has-text-centered
+                                p Already have an account?
+                                a(href="/login") Login

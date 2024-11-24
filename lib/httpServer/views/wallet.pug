@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+    head
+        title Naivecoin - Wallet
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css")
+        style.
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: #f5f5f5;
+            }
+            .wallet-container {
+                margin-top: 50px;
+            }
+            .wallet-box {
+                padding: 40px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+    body
+        section.section
+            .container.wallet-container
+                .columns.is-centered
+                    .column.is-half
+                        .box.wallet-box
+                            h2.title.is-3.has-text-centered Wallet
+                            if error
+                                .notification.is-danger.has-text-centered
+                                    | #{error}
+                            if id
+                                .content
+                                    h3.title.is-4 Wallet ID: #{id}
+                                    h4.subtitle.is-5 Addresses:
+                                    form(method="POST", action=`/wallet/address`)
+                                        .field
+                                            .control
+                                                div.select.is-fullwidth
+                                                    select(name="address")
+                                                        each keypair in addresses
+                                                            option(value=keypair) #{keypair}
+                                        .field
+                                            .control.has-text-centered
+                                                button.button.is-primary(type="submit") View Address
+                                    form(method="POST", action=`/wallet/create-address`)
+                                        .field
+                                            .control.has-text-centered
+                                                button.button.is-primary(type="submit") Generate a new address
+                            else
+                                p.has-text-centered No wallet information available.
+                            .has-text-centered
+                                a.button.is-primary(href="/") Go to Home
