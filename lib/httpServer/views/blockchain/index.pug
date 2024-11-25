@@ -12,6 +12,8 @@ block content
                         span.tag.is-primary Regular
                         span.tag.is-warning Fee
                         span.tag.is-danger Reward
+                        span.tag.is-info Registration
+                        span.tag.is-success Attendance
             hr
             .columns.is-multiline
                 each block in blocks                    
@@ -36,7 +38,7 @@ block content
                                     if block.index > 0
                                         each transaction in block.transactions                                       
                                             if transaction.data.inputs.length > 0 || transaction.data.outputs.length > 0
-                                                - var classByType = { 'regular': 'is-primary', 'fee': 'is-warning', 'reward': 'is-danger' }
+                                                - var classByType = { 'regular': 'is-primary', 'fee': 'is-warning', 'reward': 'is-danger', 'registration': 'is-info', 'attendance': 'is-success' }
                                                 div.notification(class=`${classByType[transaction.type]}`)
                                                     p
                                                         if transaction.data.inputs.length > 0

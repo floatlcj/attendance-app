@@ -25,9 +25,12 @@ html(lang="en")
                     .column.is-half
                         .box.address-box
                             h2.title.is-3.has-text-centered Address View
+                            if regSuccess
+                                .notification.has-text-centered
+                                    | #{regSuccess}
                             p.has-text-centered
                                 | Address: #{address}
-                            form(method="POST", action="/wallet/registration")
+                            form(method="POST", action="/wallet/address/registration")
                                 .field
                                     label.label(for="stuid") Student ID
                                     .control
@@ -37,3 +40,23 @@ html(lang="en")
                                         button.button.is-primary(type="submit") Register
                             .has-text-centered
                                 a.button.is-primary(href=`/wallet`) Back to Wallet
+                        .box.address-box
+                            h2.title.is-3.has-text-centered Take Attendance
+                            if attError
+                                .notification.is-danger.has-text-centered
+                                    | #{attError}
+                            if attSuccess 
+                                .notification.has-text-centered
+                                    | #{attSuccess}
+                            form(method="POST", action="/wallet/address/attendance")
+                                .field
+                                    label.label(for="stuid") Student ID
+                                    .control
+                                        input.input(type="text", name="stuid", required)
+                                .filed
+                                    label.label(for="eventId") Event ID
+                                    .control
+                                        input.input(type="text", name="eventId", required)
+                                .field
+                                    .control.has-text-centered
+                                        button.button.is-primary(type="submit") Take Attendance
