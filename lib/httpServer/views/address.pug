@@ -32,9 +32,9 @@ html(lang="en")
                                 | Address: #{address}
                             form(method="POST", action="/wallet/address/registration")
                                 .field
-                                    label.label(for="stuid") Student ID
+                                    label.label(for="studentId") Student ID
                                     .control
-                                        input.input(type="text", name="stuid", required)
+                                        input.input(type="text", name="studentId", required)
                                 .field
                                     .control.has-text-centered
                                         button.button.is-primary(type="submit") Register
@@ -50,9 +50,9 @@ html(lang="en")
                                     | #{attSuccess}
                             form(method="POST", action="/wallet/address/attendance")
                                 .field
-                                    label.label(for="stuid") Student ID
+                                    label.label(for="studentId") Student ID
                                     .control
-                                        input.input(type="text", name="stuid", required)
+                                        input.input(type="text", name="studentId", required)
                                 .filed
                                     label.label(for="eventId") Event ID
                                     .control
