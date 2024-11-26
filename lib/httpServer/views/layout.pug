@@ -3,8 +3,10 @@ html(lang="en").has-navbar-fixed-top
     head
         title Attendance App - #{pageTitle}
         meta(name="viewport", content="width=device-width, initial-scale=1")
-        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css")        
-        script(src="https://use.fontawesome.com/releases/v5.0.0/js/all.js", defer)        
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bulma-calendar@7.1.1/dist/css/bulma-calendar.min.css")        
+        script(src="https://use.fontawesome.com/releases/v5.3.1/js/all.js", defer)
+        script(src="https://cdn.jsdelivr.net/npm/bulma-calendar@7.1.1/dist/js/bulma-calendar.min.js")        
         style(type='text/css').
             /* Tooltip container */
             .tooltip {
@@ -33,18 +35,24 @@ html(lang="en").has-navbar-fixed-top
                 visibility: visible;
             }
     body
-        nav.navbar.is-fixed-top.is-info
+        nav.navbar.is-fixed-top.is-primary
             .container
                 .navbar-menu.is-active
                     .navbar-brand
-                        span.navbar-item.title.is-2 Attendance App
+                        a.navbar-item.title.is-2(href="/home") Attendance App
                     .navbar-start                        
                         a.navbar-item(href="/blockchain", class=`${pageTitle=='Blockchain' ? 'is-active' : ''}`) Blockchain
                         a.navbar-item(href="/blockchain/transactions", class=`${pageTitle=='Unconfirmed Transactions' ? 'is-active' : ''}`) Unconfirmed Transactions
                     .navbar-end
-                        a.navbar-item(href="/api-docs/", target="_blank") API
+                        if user 
+                            a.navbar-item.title.is-3 #{user}
+                        //- a.navbar-item(href="/api-docs/", target="_blank") API
         block content
         script.
+            function setLoadingState() {
+                    var button = document.getElementById('queryButton');
+                    button.classList.add('is-loading');
+                }
             function toggle_visibility(id) {
                 var e = document.getElementById(id);
                 if ( e.style.display == 'none' )
@@ -52,3 +60,49 @@ html(lang="en").has-navbar-fixed-top
                 else
                     e.style.display = 'none';
             }
+            function hideNotification() {
+                var notification = document.getElementById('notification');
+                notification.style.display = 'none';
+            }
+            document.addEventListener('DOMContentLoaded', () => {
+            // Functions to open and close a modal
+            function openModal($el) {
+                $el.classList.add('is-active');
+            }
+
+            function closeModal($el) {
+                $el.classList.remove('is-active');
+            }
+
+            function closeAllModals() {
+                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+                closeModal($modal);
+                });
+            }
+
+            // Add a click event on buttons to open a specific modal
+            (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+                const modal = $trigger.dataset.target;
+                const $target = document.getElementById(modal);
+
+                $trigger.addEventListener('click', () => {
+                openModal($target);
+                });
+            });
+
+            // Add a click event on various child elements to close the parent modal
+            (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+                const $target = $close.closest('.modal');
+
+                $close.addEventListener('click', () => {
+                closeModal($target);
+                });
+            });
+
+            // Add a keyboard event to close all modals
+            document.addEventListener('keydown', (event) => {
+                if(event.key === "Escape") {
+                closeAllModals();
+                }
+            });
+            });

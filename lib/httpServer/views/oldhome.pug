@@ -1,0 +1,33 @@
+extends ./layout.pug
+
+block content 
+    section.section.has-background-light.is-fullheight
+        .box.has-text-centered
+            .container
+                .columns.is-centered 
+                    .column.is-half
+                        .dropdown.is-active
+                            .dropdown-trigger 
+                                button.button(aria-haspopup="true", aria-controls="dropdown-menu" onclick="toggle_visibility('dropdown-menu')")
+                                    span 7f18637c583ff183b2b16ccb6964d8973e87fb373ba2a89337915294dd144136
+                                    span.icon.is-small
+                                        i.fas.fa-angle-down(aria-hidden="true")
+                                .dropdown-menu.is-light.is-center(id="dropdown-menu" role="menu")
+                                    .dropdown-content
+                                        a.dropdown-item() 0x581ac85c58341dcFe713A586840e9802951fac47
+                                        hr.dropdown-divider
+                                        a.dropdown-item() Attendances
+            .columns.is-centered 
+                    .column.has-text-centered
+                    .column.has-text-centered
+                        .notification.is-size-2.is-info.is-light <strong>1,000</strong> <small>NIC</small>
+                    .column.has-text-centered
+            .columns.is-centered 
+                .column.has-text-centered
+                .column.has-text-centered
+                    button.button.is-medium.is-primary Register Student ID
+                .column.has-text-centered
+                    button.button.is-medium.is-primary Take Attendance
+                .column.has-text-centered
+                    button.button.is-medium.is-primary Query Attendance
+                .column.has-text-centered

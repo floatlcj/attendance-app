@@ -1,0 +1,45 @@
+extends ./layout.pug
+
+block content 
+    section.section
+        .container.is-max-tablet
+            .box
+                form(method="POST", action="/query-attendance-by-id-time", onsubmit="setLoadingState()")
+                    .field
+                        label.label(for="studentId") Student ID
+                        .control 
+                            input.input(type="text", name="studentId", required)
+                    .field
+                        label.label(for="startDate") Start Date
+                        .control 
+                            input.input(type="date", name="startDate", required)
+                    .field
+                        label.label(for="endDate") End Date
+                        .control 
+                            input.input(type="date", name="endDate", required)
+                    button.button.is-primary(type="submit", id="queryButton") Query
+            hr
+            if attendanceList
+                .columns.is-multiline
+                    each attendance in attendanceList
+                        .column.is-half
+                            .box
+                                .content.is-small 
+                                    p.title.is-4
+                                        | Event ID: 
+                                        small #{attendance.eventId}
+                                    p.subtitle.is-6
+                                        | Student ID:
+                                        code.tooltip
+                                            | #{attendance.studentId}
+                                            span.tooltiptext #{attendance.studentId}
+                                        br
+                                        | Transaction ID:
+                                        code.tooltip
+                                            | #{formatters.hash(attendance.transaction)}
+                                            span.tooltiptext #{attendance.studentId}
+                                    p.has-text-right.is-small
+                                            | #{formatters.time(attendance.timeStamp)}
+            if error 
+                .notification.is-danger 
+                    p.has-text-centered #{error}

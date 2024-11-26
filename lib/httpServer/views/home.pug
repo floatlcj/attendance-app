@@ -1,0 +1,82 @@
+extends ./layout.pug
+
+block content 
+    section.section.is-fullheight
+        .columns.is-centered 
+            .column 
+            .column.is-two-thirds 
+                .box.has-text-centered
+                    .modal(id="address-modal")
+                        .modal-background 
+                        .modal-conent 
+                            .box 
+                                .notification 
+                                    p #{address}
+                        button.modal-close.is-large(aria-label="close")
+                    if notification
+                        .notification.is-info(id="notification") 
+                            button.delete(onclick="hideNotification()")
+                            .is-size-3 #{notification}
+                    if error
+                        .notification.is-danger(id="error") 
+                            button.delete(onclick="toggle_visibility('error')")
+                            .is-size-4 #{error}
+                    button.js-modal-trigger.button.is-primary(data-target="address-modal") #{formatters.hash(address)}
+                    .modal(id="attendance-modal")
+                        .modal-background
+                        .modal-card 
+                            header.modal-card-head
+                                p.modal-card-title Take Attendance
+                                button.delete(aria-label="close")
+                            section.modal-card-body
+                                form.box(method="POST", action="/take-attendance") 
+                                    .field 
+                                        label.label(for="studentId") Student ID
+                                        .control 
+                                            input.input(type="text", placeholder="Student ID", name="studentId", required)
+                                    .field 
+                                        label.label(for="eventId") Event ID 
+                                        .control 
+                                            input.input(type="text", placeholder="Event ID", name="eventId", required)
+                                    button.button.is-primary(type="submit") Take Attendance
+                            footer.modal-card-foot
+                    .modal(id="registration-modal")
+                        .modal-background
+                        .modal-card 
+                            header.modal-card-head
+                                p.modal-card-title Register Student ID
+                                button.delete(aria-label="close")
+                            section.modal-card-body
+                                form.box(method="POST", action="/studentId-registration") 
+                                    .field 
+                                        label.label(for="studentId") Student ID
+                                        .control 
+                                            input.input(type="text", placeholder="Student ID", name="studentId", required)
+                                    button.button.is-primary(type="submit") Register
+                            footer.modal-card-foot
+                    .modal(id="query-modal")
+                        .modal-background
+                        .modal-card 
+                            header.modal-card-head
+                                p.modal-card-title Query Attendance
+                                button.delete(aria-label="close")
+                            section.modal-card-body
+                                a.button.is-medium.is-primary(href="/query-attendance-by-id") Query by Student ID
+                                hr
+                                a.button.is-medium.is-primary(href="/query-attendance-by-event") Query by Event ID
+                                hr
+                                a.button.is-medium.is-primary(href="/query-attendance-by-id-time") Query by Student ID and Time
+                            footer.modal-card-foot
+                    h1.is-size-1 Balance
+                    .notification.is-size-2.is-info.is-light <strong>#{formatters.amount(balance)}</strong> <small>NIC</small>
+                    .columns.is-centered 
+                        .column.has-text-centered
+                            a.button.is-medium.is-primary.is-fullwidth(href="/mint") Mint
+                        .column.has-text-centered
+                            button.js-modal-trigger.button.is-medium.is-primary.is-fullwidth(data-target="registration-modal") Register Student ID
+                        .column.has-text-centered
+                            button.js-modal-trigger.button.is-medium.is-primary.is-fullwidth(data-target="attendance-modal") Take Attendance
+                        .column.has-text-centered
+                            button.js-modal-trigger.button.is-medium.is-primary.is-fullwidth(data-target="query-modal") Query Attendance
+            .column
+        
